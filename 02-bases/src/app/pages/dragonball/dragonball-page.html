@@ -1,0 +1,36 @@
+<h1>DragonBall Page</h1>
+<hr />
+
+<section class="row">
+  <div class="col-12 col-sm-6">
+    <h3>Add character:</h3>
+    <input type="text" class="fomr-control" placeholder="Name" />
+    <input type="number" class="fomr-control mt-2" placeholder="Power" />
+
+    <div class="mt-2">
+      <button class="btn btn-primary">Add</button>
+    </div>
+  </div>
+
+  <div class="col-12 col-sm-6">
+    <h3>Characters list:</h3>
+    <ul>
+      @for (character of characters(); track character.id; let idx = $index) {
+        @if (character.power >= 1000) {
+          <li>
+            <span>{{ idx + 1 }} - {{ character.name }}</span>
+            <strong
+              [class.text-danger]="character.power > 9000"
+              [class.text-success]="character.power < 9000"
+              [class.text-info]="character.power < 6000"
+              [class.text-warning]="character.power < 3000"
+            >
+              <!--[ngClass]="powerClasses()"-->
+              ({{ character.power }})
+            </strong>
+          </li>
+        }
+      }
+    </ul>
+  </div>
+</section>
