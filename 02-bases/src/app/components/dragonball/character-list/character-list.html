@@ -1,0 +1,19 @@
+<h3>{{ listName() }}</h3>
+<ul>
+  @for (character of characters(); track character.id) {
+    @if (character.power >= 1000) {
+      <li>
+        <span>{{ character.name }}</span>
+        <strong
+          [class.text-danger]="character.power > 9000"
+          [class.text-success]="character.power < 9000"
+          [class.text-info]="character.power < 6000"
+          [class.text-warning]="character.power < 3000"
+        >
+          <!--[ngClass]="powerClasses()"-->
+          ({{ character.power }})
+        </strong>
+      </li>
+    }
+  }
+</ul>
