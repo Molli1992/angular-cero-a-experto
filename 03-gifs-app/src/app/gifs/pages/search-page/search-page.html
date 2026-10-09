@@ -1,1 +1,23 @@
-<p>search-page works!</p>,
+<h2 class="text-2xl font-bold mt-5">Search Gifs</h2>
+<h3 class="text-sm text-gray-500 mb-3">Search gifs for name, description or tags</h3>
+
+<section class="flex gap-2">
+  <input
+    type="text"
+    placeholder="Search Gifs"
+    class="w-full max-w-100 h-10 border border-gray-300 rounded-md p-2"
+    (keyup.enter)="onSearch(txtSearch.value)"
+    #txtSearch
+  />
+
+  <button
+    (click)="onSearch(txtSearch.value)"
+    class="w-30 h-10 border border-gray-500 rounded-md p-2 text-gray-600 bg-gray-300 cursor-pointer active:bg-gray-400"
+  >
+    Search
+  </button>
+</section>
+
+<section class="mt-5">
+  <gif-list [gifs]="gifs()" />
+</section>
