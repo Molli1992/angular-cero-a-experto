@@ -1,7 +1,6 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, untracked } from '@angular/core';
 import { GifList } from '../../components/gif-list/gif-list';
 import { GifsService } from '../../services/gifs.service';
-import { Gif } from '../../interfaces/gifs.interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
@@ -12,19 +11,22 @@ import { map } from 'rxjs';
   templateUrl: './gif-history-page.html',
 })
 export default class GifHistoryPage {
-  query = toSignal(inject(ActivatedRoute).params.pipe(map((params) => params['query'])));
+  query = toSignal(
+    inject(ActivatedRoute).params.pipe(map((params) => (params['query'] as string).toLocaleLowerCase())),
+  );
   gifsService = inject(GifsService);
-  historyGifs = signal<Gif[]>([]);
+  historyGifs = computed(() => this.gifsService.searchHistory()[this.query() ?? ''] ?? []);
 
+  // The gifs already loaded (with all their pages) are reused; they're only fetched if missing
   queryEffect = effect(() => {
     const query = this.query();
     if (!query) return;
-    this.getHistoryGifs(query);
+    if (untracked(() => this.gifsService.searchHistory()[query])) return;
+    this.gifsService.searchGifs(query).subscribe();
   });
 
-  getHistoryGifs(query: string) {
-    this.gifsService.searchGifs(query).subscribe((resp) => {
-      this.historyGifs.set(resp);
-    });
+  onLoadMore() {
+    const query = this.query();
+    if (query) this.gifsService.loadMoreSearchGifs(query);
   }
 }

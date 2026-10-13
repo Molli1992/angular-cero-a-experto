@@ -1,7 +1,23 @@
-    <div
-      id="menu"
-      class="w-44 sm:w-64 bg-gray-900 min-h-screen z-10 text-slate-300 h-screen overflow-y-auto"
-    >
-      <gifs-side-menu-header />
-      <gifs-side-menu-options />
-    </div>
+<!-- Only on small screens: opens / closes the menu -->
+<button
+  type="button"
+  class="sm:hidden fixed top-3 right-3 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-gray-900 text-white shadow-lg cursor-pointer"
+  [attr.aria-label]="isOpen() ? 'Close menu' : 'Open menu'"
+  [attr.aria-expanded]="isOpen()"
+  aria-controls="menu"
+  (click)="toggle()"
+>
+  <i class="fa-solid" [class.fa-bars]="!isOpen()" [class.fa-xmark]="isOpen()"></i>
+</button>
+
+<div
+  id="menu"
+  class="sm:block sm:static sm:w-64 p-6 bg-gray-900 z-10 text-slate-300 h-screen overflow-y-auto"
+  [class.hidden]="!isOpen()"
+  [class.fixed]="isOpen()"
+  [class.inset-0]="isOpen()"
+  [class.w-full]="isOpen()"
+>
+  <gifs-side-menu-header />
+  <gifs-side-menu-options />
+</div>

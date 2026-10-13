@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { GifsService } from '../../../../services/gifs.service';
 
 interface MenuOption {
@@ -16,6 +16,7 @@ interface MenuOption {
 })
 export class SideMenuOptions {
   gifsService = inject(GifsService);
+  private router = inject(Router);
 
   menuOptions: MenuOption[] = [
     {
@@ -31,4 +32,14 @@ export class SideMenuOptions {
       icon: 'fa-solid fa-magnifying-glass',
     },
   ];
+
+  onRemoveHistory(event: MouseEvent, key: string) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const isActive = this.router.url === `/dashboard/history/${encodeURIComponent(key)}`;
+    this.gifsService.removeFromHistory(key);
+
+    if (isActive) this.router.navigateByUrl('/dashboard/trending');
+  }
 }

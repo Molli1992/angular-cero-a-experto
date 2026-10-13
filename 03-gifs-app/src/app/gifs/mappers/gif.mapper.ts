@@ -7,6 +7,8 @@ export class GifMapper {
       id: item.id,
       title: item.id,
       url: item.images.original.url,
+      width: Number(item.images.original.width),
+      height: Number(item.images.original.height),
     };
   }
 

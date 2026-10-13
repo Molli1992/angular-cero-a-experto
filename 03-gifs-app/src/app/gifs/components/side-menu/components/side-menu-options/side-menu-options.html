@@ -1,4 +1,4 @@
-<div id="nav" class="w-full px-6">
+<div id="nav" class="w-full">
   @for (item of menuOptions; track item.route) {
     <a
       [routerLink]="item.route"
@@ -27,6 +27,14 @@
       <div class="flex flex-col">
         <span class="text-lg font-bold leading-5 text-white">{{ key }}</span>
       </div>
+      <button
+        type="button"
+        title="Delete from history"
+        class="ml-auto px-2 text-white/50 hover:text-red-500 cursor-pointer transition ease-linear duration-150"
+        (click)="onRemoveHistory($event, key)"
+      >
+        <i class="fa-solid fa-trash"></i>
+      </button>
     </a>
   }
 
