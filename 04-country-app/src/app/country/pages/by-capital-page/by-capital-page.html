@@ -1,5 +1,10 @@
 <country-page-container>
-  <country-search-input placeholder="Search by capital" />
+  <country-search-input placeholder="Search by capital" (value)="query.set($event)" />
 
-  <country-list />
+  <country-list
+    [countries]="countryResource.value() ?? []"
+    [isLoading]="countryResource.isLoading()"
+    [isEmpty]="countryResource.value()?.length === 0"
+    [errorMessage]="countryResource.error()"
+  />
 </country-page-container>

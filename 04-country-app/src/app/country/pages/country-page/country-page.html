@@ -1,1 +1,19 @@
-<p>country-page works!</p>,
+@if (countryResource.isLoading()) {
+  <p>Loading country...</p>
+} @else if (countryResource.error()) {
+  <p>{{ countryResource.error() }}</p>
+} @else if (countryResource.value()?.[0]; as country) {
+  <section>
+    <h1 class="text-3xl font-bold">{{ country.name }}</h1>
+    <h2 class="text-2xl font-bold">{{ country.emoji }}</h2>
+    <img [src]="country.flagSvg" [alt]="country.name" class="w-40 my-4" />
+    <p class="text-md"><strong class="text-lg"> Capital:</strong> {{ country.capital }}</p>
+    <p class="text-md">
+      <strong class="text-lg">Population:</strong> {{ country.population | number }}
+    </p>
+    <p class="text-md"><strong class="text-lg">Region:</strong> {{ country.region }}</p>
+    <p class="text-md"><strong class="text-lg">Subregion:</strong> {{ country.subregion }}</p>
+  </section>
+} @else {
+  <p>Country not found</p>
+}

@@ -11,9 +11,42 @@
         <th></th>
       </tr>
     </thead>
-
     <tbody>
-      <tr></tr>
+      @if (errorMessage()) {
+        <tr>
+          <td colspan="8" class="text-center">
+            {{ errorMessage() }}
+          </td>
+        </tr>
+      } @else if (isLoading()) {
+        <tr>
+          <td colspan="8" class="text-center">Loading countries...</td>
+        </tr>
+      } @else if (isEmpty() && !isLoading()) {
+        <tr>
+          <td colspan="8" class="text-center">Countries not found</td>
+        </tr>
+      } @else {
+        @for (country of countries(); track country.code; let index = $index) {
+          <tr>
+            <td>{{ index + 1 }}</td>
+            <td>{{ country.emoji }}</td>
+            <td>
+              <img [src]="country.flagSvg" [alt]="country.name" class="w-10" />
+            </td>
+            <td>{{ country.name }}</td>
+            <td>{{ country.capital }}</td>
+            <td>
+              <span class="badge badge-secondary">{{ country.population | number }}</span>
+            </td>
+            <td>
+              <a [routerLink]="['/country/by', country.code]" class="link-primary cursor-pointer"
+                >More information...</a
+              >
+            </td>
+          </tr>
+        }
+      }
     </tbody>
   </table>
 </section>
