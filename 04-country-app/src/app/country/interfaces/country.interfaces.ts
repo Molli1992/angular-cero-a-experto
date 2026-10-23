@@ -9,4 +9,4 @@ export interface Country {
   subregion: string;
 }
 
-export type SearchField = 'capitals' | 'names.common' | 'codes.alpha_3';
+export type SearchField = 'capitals' | 'names.common' | 'codes.alpha_3' | 'region';

@@ -2,11 +2,10 @@
   <input
     type="text"
     class="input input-bordered w-56"
+    [value]="inputValue()"
     [placeholder]="placeholder()"
     autofocus
     #txtSearch
-    (keyup.enter)="value.emit(txtSearch.value)"
+    (keyup)="inputValue.set(txtSearch.value)"
   />
-
-  <button class="btn btn-primary" (click)="value.emit(txtSearch.value)">Search</button>
 </section>
