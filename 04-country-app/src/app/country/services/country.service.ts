@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 import { RESTCountry } from '../interfaces/rest-countries.interfaces';
 import { CountryMapper } from '../mappers/country.mappers';
 import { Country, SearchField } from '../interfaces/country.interfaces';
+import { Region } from '../interfaces/region.type';
 
 const API_URL = `${environment.restCountriesUrl}/countries/v5`;
 
@@ -17,6 +18,10 @@ export class CountryService {
   private queryCacheCountries = new Map<string, Country[]>();
   private queryCacheCountry = new Map<string, Country[]>();
   private queryCacheRegion = new Map<string, Country[]>();
+
+  lastCountryQuery = '';
+  lastCapitalQuery = '';
+  lastRegion: Region | null = null;
 
   searchCountries(field: SearchField, query: string): Observable<Country[]> {
     const lowerCaseQuery = query.toLocaleLowerCase();

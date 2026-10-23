@@ -17,12 +17,14 @@ export class ByCountryPage {
   activatedRoute = inject(ActivatedRoute);
   router = inject(Router);
 
-  queryParam = this.activatedRoute.snapshot.queryParamMap.get('query') ?? '';
+  queryParam =
+    this.activatedRoute.snapshot.queryParamMap.get('query') ?? this.countryService.lastCountryQuery;
   query = linkedSignal(() => this.queryParam);
 
   countryResource = rxResource<Country[], { query: string }>({
     params: () => ({ query: this.query() }),
     stream: ({ params }) => {
+      this.countryService.lastCountryQuery = params.query;
       this.router.navigate(['/country/by-country'], {
         queryParams: {
           query: params.query,

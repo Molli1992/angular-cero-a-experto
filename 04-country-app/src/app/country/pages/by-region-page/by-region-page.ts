@@ -36,12 +36,14 @@ export class ByRegionPage {
 
   public regions: Region[] = ['Africa', 'America', 'Asia', 'Europe', 'Oceania', 'Antarctic'];
 
-  queryParam = this.activatedRoute.snapshot.queryParamMap.get('region') ?? null;
+  queryParam =
+    this.activatedRoute.snapshot.queryParamMap.get('region') ?? this.countryService.lastRegion;
   selectedRegion = linkedSignal<Region | null>(() => validateQueryParam(this.queryParam));
 
   countryResource = rxResource<Country[], { region: Region | null }>({
     params: () => ({ region: this.selectedRegion() }),
     stream: ({ params }) => {
+      this.countryService.lastRegion = params.region;
       this.router.navigate(['/country/by-region'], {
         queryParams: {
           region: params.region,
