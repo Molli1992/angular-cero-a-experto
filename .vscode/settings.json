@@ -4,5 +4,27 @@
             "externalTemplate": true,
             "skipStyle": true
         }
-    }
+    },
+    "editor.inlineSuggest.enabled": false,
+    "editor.inlineSuggest.showToolbar": "never",
+    "editor.inlineSuggest.suppressSuggestions": true,
+    "editor.quickSuggestions": {
+        "other": "off",
+        "comments": "off",
+        "strings": "off"
+    },
+    "editor.suggestOnTriggerCharacters": false,
+    "editor.wordBasedSuggestions": "off",
+    "editor.suggest.preview": false,
+    "editor.tabCompletion": "off",
+    "editor.acceptSuggestionOnEnter": "off",
+    "editor.acceptSuggestionOnCommitCharacter": false,
+    "editor.snippetSuggestions": "none",
+    "emmet.triggerExpansionOnTab": false,
+    "emmet.showExpandedAbbreviation": "never",
+    "emmet.showAbbreviationSuggestions": false,
+    "editor.codeLens": false,
+    "editor.inlayHints.enabled": "off",
+    "editor.lightbulb.enabled": "off",
+    "editor.parameterHints.enabled": false
 }
