@@ -1,0 +1,13 @@
+<div class="flex flex-col gap-4">
+  <div class="divider"></div>
+
+  <h1 class="text-2xl font-bold">
+    Current Location: <span class="badge badge-secondary">{{ currentLocal() }}</span>
+  </h1>
+
+  <div class="flex gap-4">
+    <button (click)="changeLocale('en')" class="btn btn-primary">Switch to English</button>
+    <button (click)="changeLocale('es')" class="btn btn-primary">Switch to Spanish</button>
+    <button (click)="changeLocale('fr')" class="btn btn-primary">Switch to French</button>
+  </div>
+</div>
