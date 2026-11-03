@@ -1,9 +1,10 @@
 import { DatePipe, LowerCasePipe, TitleCasePipe, UpperCasePipe } from '@angular/common';
 import { Component, effect, signal } from '@angular/core';
+import { Header } from '../../components/header/header';
 
 @Component({
   selector: 'app-basic-page',
-  imports: [LowerCasePipe, UpperCasePipe, TitleCasePipe, DatePipe],
+  imports: [LowerCasePipe, UpperCasePipe, TitleCasePipe, DatePipe, Header],
   templateUrl: './basic-page.html',
 })
 export default class BasicPage {

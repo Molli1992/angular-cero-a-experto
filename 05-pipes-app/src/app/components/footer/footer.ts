@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, LOCALE_ID, signal } from '@angular/core';
-import { LocalService } from '../../services/localService';
-import { AvailableLocale } from '../../interfaces/localeTypes';
+import { LocaleService } from '../../services/locale-service';
+import { AvailableLocale } from '../../interfaces/locale-types';
 
 @Component({
   selector: 'app-footer',
@@ -9,10 +9,10 @@ import { AvailableLocale } from '../../interfaces/localeTypes';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Footer {
-  localService = inject(LocalService);
+  localeService = inject(LocaleService);
   currentLocal = signal(inject(LOCALE_ID));
 
   changeLocale(locale: AvailableLocale) {
-    this.localService.changeLocale(locale);
+    this.localeService.changeLocale(locale);
   }
 }

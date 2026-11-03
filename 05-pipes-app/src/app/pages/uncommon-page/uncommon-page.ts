@@ -11,6 +11,7 @@ import {
   UpperCasePipe,
 } from '@angular/common';
 import { interval, tap } from 'rxjs';
+import { Header } from '../../components/header/header';
 
 interface CustomerInterface {
   name: string;
@@ -51,6 +52,7 @@ const customer2: CustomerInterface = {
     KeyValuePipe,
     TitleCasePipe,
     AsyncPipe,
+    Header,
   ],
   templateUrl: './uncommon-page.html',
 })

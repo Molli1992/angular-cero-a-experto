@@ -1,1 +1,90 @@
-<p>custom-page works!</p>,
+<app-header title="Custom Pipes" description="Pipes not included in Angular" />
+
+<section class="stats shadow">
+  <div class="stat">
+    <div class="stat-title">ToggleCase Pipe</div>
+    <div class="stat-value">{{ name() | toggleCasePipe: upperCase() }}</div>
+    <div class="stat-desc">{{ name() }}</div>
+
+    <button class="btn btn-accent mt-4 w-fit" (click)="toggleUpperCaseSignal()">ToggleCase</button>
+  </div>
+</section>
+
+<div class="divider mt-4"></div>
+
+<section class="flex flex-col gap-4">
+  <div class="flex flex-col gap-2">
+    <h1 class="text-2xl font-bold">Filtering by: {{ searchQuery() }}</h1>
+    <h1 class="text-2xl font-bold">Sort by: {{ sortBy() }}</h1>
+  </div>
+
+  <div class="flex flex-col sm:flex-row sm:justify-between gap-4 w-full">
+    <div>
+      <input
+        type="text"
+        class="input input-bordered w-52 sm:w-40 md:w-52"
+        placeholder="Search hero..."
+        (input)="searchQuery.set(txtSearch.value)"
+        #txtSearch
+      />
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-2">
+      <div class="flex gap-2">
+        <button (click)="changeSortBy('name')" class="btn btn-primary w-25">By name</button>
+        <button (click)="changeSortBy('canFly')" class="btn btn-accent w-25">By fly</button>
+      </div>
+
+      <div class="flex gap-2">
+        <button (click)="changeSortBy('color')" class="btn btn-secondary w-25">By color</button>
+        <button (click)="changeSortBy('creator')" class="btn btn-info w-25">By creator</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="overflow-x-auto w-full mt-4 bg-[#141414]">
+  <table class="table table-xs w-full">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Can fly</th>
+        <th>Color</th>
+        <th>Creator</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- row -->
+      @for (
+        hero of heroes() | heroFilterPipe: searchQuery() | heroSortByPipe: sortBy() : sortReverse();
+        track hero.id;
+        let i = $index
+      ) {
+        <tr>
+          <td>{{ i + 1 }}</td>
+          <td>{{ hero.name }}</td>
+          <td>
+            <span
+              class="text-xs w-44"
+              [class.text-success]="hero.canFly"
+              [class.text-accent]="!hero.canFly"
+              >{{ hero.canFly | canFlyPipe }}</span
+            >
+          </td>
+          <td>
+            <span class="text-xs w-44" [style.color]="hero.color | heroTextColorPipe">{{
+              hero.color | heroColorPipe | titlecase
+            }}</span>
+          </td>
+          <td>
+            <span class="text-xs w-44" [style.color]="hero.creator | heroTextColorCreatorPipe">{{
+              hero.creator | heroCreatorPipe
+            }}</span>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>

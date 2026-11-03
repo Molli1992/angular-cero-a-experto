@@ -1,9 +1,10 @@
 import { CurrencyPipe, DecimalPipe, PercentPipe } from '@angular/common';
 import { Component, signal } from '@angular/core';
+import { Header } from '../../components/header/header';
 
 @Component({
   selector: 'app-number-page',
-  imports: [DecimalPipe, PercentPipe, CurrencyPipe],
+  imports: [DecimalPipe, PercentPipe, CurrencyPipe, Header],
   templateUrl: './number-page.html',
 })
 export default class NumberPage {

@@ -1,10 +1,10 @@
 import { Injectable, signal } from '@angular/core';
-import { AvailableLocale } from '../interfaces/localeTypes';
+import { AvailableLocale } from '../interfaces/locale-types';
 
 @Injectable({
   providedIn: 'root',
 })
-export class LocalService {
+export class LocaleService {
   private currentLocale = signal<AvailableLocale>('en');
 
   constructor() {
