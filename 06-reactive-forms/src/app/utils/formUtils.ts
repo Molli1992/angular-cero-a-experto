@@ -10,6 +10,8 @@ export class FormUtils {
           return `Min of ${errors['minlength'].requiredLength} characters`;
         case 'min':
           return `Min value of ${errors['min'].min}`;
+        case 'email':
+          return `Invalid email format`;
       }
     }
 
