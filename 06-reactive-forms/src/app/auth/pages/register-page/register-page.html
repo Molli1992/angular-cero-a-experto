@@ -11,7 +11,7 @@
           <input
             type="text"
             class="form-control"
-            placeholder="User's name"
+            placeholder="First and last name"
             formControlName="name"
           />
           @if (formUtils.isValidField(myForm, 'name')) {
@@ -90,6 +90,9 @@
             <span class="form-text text-danger">
               {{ formUtils.getFieldError(myForm, 'password2') }}
             </span>
+          }
+          @if (myForm.errors && myForm.errors['fieldsNotEqual'] && myForm.touched) {
+            <span class="form-text text-danger"> Passwords do not match </span>
           }
         </div>
       </div>

@@ -1,6 +1,55 @@
-import { FormGroup, FormArray, ValidationErrors } from '@angular/forms';
+import { FormGroup, FormArray, ValidationErrors, AbstractControl } from '@angular/forms';
 
+async function sleep() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(true);
+    }, 2500);
+  });
+}
 export class FormUtils {
+  static namePattern = '^([a-zA-Z]+) ([a-zA-Z]+)$';
+  static emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
+  static notOnlySpacesPattern = '^[a-zA-Z0-9]+$';
+  static passwordPattern = '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$';
+
+  static isFieldOneEqualFieldTwo(field1: string, field2: string) {
+    return (formGroup: AbstractControl) => {
+      const field1Value = formGroup.get(field1)?.value;
+      const field2Value = formGroup.get(field2)?.value;
+
+      return field1Value === field2Value
+        ? null
+        : {
+            fieldsNotEqual: true,
+          };
+    };
+  }
+
+  static async checkingServerResponse(control: AbstractControl): Promise<ValidationErrors | null> {
+    await sleep();
+
+    const fromValue = control.value;
+
+    if (fromValue === 'hola@mundo.com') {
+      return {
+        emailTaken: true,
+      };
+    }
+
+    return null;
+  }
+
+  static usernameAlreadyInUse(control: AbstractControl): ValidationErrors | null {
+    const fromValue = control.value;
+
+    return fromValue === 'strider'
+      ? {
+          usernameTaken: true,
+        }
+      : null;
+  }
+
   static getTextError(errors: ValidationErrors): string | null {
     for (const key of Object.keys(errors)) {
       switch (key) {
@@ -10,8 +59,27 @@ export class FormUtils {
           return `Min of ${errors['minlength'].requiredLength} characters`;
         case 'min':
           return `Min value of ${errors['min'].min}`;
-        case 'email':
-          return `Invalid email format`;
+        case 'emailTaken':
+          return 'The email is already in use';
+        case 'usernameTaken':
+          return 'The username is already in use';
+        case 'pattern':
+          if (errors['pattern'].requiredPattern === this.namePattern) {
+            return 'Name must include a first and last name.';
+          }
+          if (errors['pattern'].requiredPattern === this.emailPattern) {
+            return 'Invalid email';
+          }
+          if (errors['pattern'].requiredPattern === this.notOnlySpacesPattern) {
+            return 'The username cannot contain spaces.';
+          }
+          if (errors['pattern'].requiredPattern === this.passwordPattern) {
+            return 'The password must contain at least one uppercase letter, one lowercase letter, one number, and one letter.';
+          }
+          return 'Pattern error';
+
+        default:
+          return `Uncontrolled error`;
       }
     }
 
