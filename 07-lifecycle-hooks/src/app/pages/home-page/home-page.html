@@ -1,0 +1,37 @@
+<section>
+  <h1>Home Page</h1>
+  <hr />
+</section>
+
+<section>
+  <div>
+    <h3>Traditional:</h3>
+    <p>{{ traditionalProperty }}</p>
+
+    <h3>Signal:</h3>
+    <p>{{ signalProperty() }}</p>
+  </div>
+
+  <div>
+    <h3>TitleComponent Traditional:</h3>
+    <app-title
+      [title]="traditionalProperty"
+      [title2]="traditionalProperty"
+      [title3]="traditionalProperty"
+      [title4]="traditionalProperty"
+    />
+
+    <h3>TitleComponent Signal:</h3>
+    <app-title
+      [title]="signalProperty()"
+      [title2]="signalProperty()"
+      [title3]="signalProperty()"
+      [title4]="signalProperty()"
+    />
+  </div>
+
+  <div>
+    <button (click)="changeTraditional()">Change traditional</button>
+    <button (click)="changeSignal()">Change signal</button>
+  </div>
+</section>
