@@ -10,5 +10,6 @@
       "skipStyle": true,
       "skipChangeDetectionOnPush": true
     }
-  }
+  },
+  "cSpell.words": ["mapbox"]
 }
