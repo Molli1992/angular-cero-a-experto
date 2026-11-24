@@ -23,6 +23,11 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "mapbox-gl.js",
+                "input": "node_modules/mapbox-gl/dist",
+                "output": "/vendor"
               }
             ],
             "styles": ["src/styles.css"]
