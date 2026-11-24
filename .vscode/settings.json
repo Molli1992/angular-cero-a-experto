@@ -11,5 +11,5 @@
       "skipChangeDetectionOnPush": true
     }
   },
-  "cSpell.words": ["mapbox"]
+  "cSpell.words": ["mapbox", "moveend", "zoomend"]
 }
