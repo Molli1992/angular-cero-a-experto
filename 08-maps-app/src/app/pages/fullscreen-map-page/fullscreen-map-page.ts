@@ -1,12 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  effect,
-  ElementRef,
-  OnDestroy,
-  signal,
-  viewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, effect, ElementRef, signal, viewChild } from '@angular/core';
 import type { Map } from 'mapbox-gl';
 import { environment } from '../../../environments/environment.development';
 import { DecimalPipe, JsonPipe } from '@angular/common';
@@ -42,6 +34,7 @@ declare const mapboxgl: typeof import('mapbox-gl');
 export class FullscreenMapPage implements AfterViewInit {
   divElement = viewChild<ElementRef>('map');
   map = signal<Map | null>(null);
+
   zoom = signal(14);
   coordinates = signal({
     lat: -71.06776,
@@ -80,6 +73,14 @@ export class FullscreenMapPage implements AfterViewInit {
       const center = map.getCenter();
       this.coordinates.set(center);
     });
+
+    map.on('load', () => {
+      console.log('Map loaded');
+    });
+
+    map.addControl(new mapboxgl.FullscreenControl());
+    map.addControl(new mapboxgl.NavigationControl());
+    map.addControl(new mapboxgl.ScaleControl());
 
     this.map.set(map);
   }
